@@ -11,4 +11,6 @@
 |
 */
 
-Route::resource('users', 'UsersController');
+Route::match(['get', 'post'], 'users/create', 'UsersController@create')->name('users.create');
+Route::match(['get', 'post'], 'users/confirm', 'UsersController@createConfirm')->name('users.create_confirm');
+Route::post('users', 'UsersController@store')->name('users.store');

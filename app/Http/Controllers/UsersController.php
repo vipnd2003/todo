@@ -16,9 +16,17 @@ class UsersController extends BaseController
         return view('users.create');
     }
 
+    public function createConfirm(CreateUserRequest $request)
+    {
+        if ($request->method() == 'POST') {
+            $request->flashExcept('_token');
+        }
+
+        return view('users.create_confirm');
+    }
+
     public function store(CreateUserRequest $request)
     {
-
     }
 
     public function show(User $user)

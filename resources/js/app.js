@@ -20,6 +20,7 @@ window.Vue = require('vue');
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
 Vue.component('create-user-component', require('./components/users/CreateUserComponent.vue').default);
+Vue.component('create-user-confirm-component', require('./components/users/CreateUserConfirmComponent.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -29,4 +30,10 @@ Vue.component('create-user-component', require('./components/users/CreateUserCom
 
 const app = new Vue({
     el: '#app',
+});
+
+$(document).on('click', '#btn-back', function(e) {
+    e.preventDefault();
+    let url = $(this).closest('form').attr('action-back');
+    $(this).closest('form').attr('action', url).submit();
 });
