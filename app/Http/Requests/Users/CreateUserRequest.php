@@ -23,6 +23,10 @@ class CreateUserRequest extends FormRequest
      */
     public function rules()
     {
+        if ($this->method() == 'GET') {
+            return [];
+        }
+
         return [
             'name' => 'required|max:100',
             'email' => 'required|email|max:254|unique:users,email',

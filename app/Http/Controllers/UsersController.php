@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller as BaseController;
 use App\Http\Requests\Users\CreateUserRequest;
+use App\Models\User;
+use Illuminate\Http\Request;
 
 class UsersController extends BaseController
 {
@@ -11,8 +13,12 @@ class UsersController extends BaseController
     {
     }
 
-    public function create()
+    public function create(Request $request)
     {
+        if ($request->method() == 'POST') {
+            $request->flashExcept('_token');
+        }
+
         return view('users.create');
     }
 
@@ -27,6 +33,12 @@ class UsersController extends BaseController
 
     public function store(CreateUserRequest $request)
     {
+        $user = new User($request->all());
+        if ($user->save()) {
+            redirect('users.index');
+        } else {
+            abort(500);
+        }
     }
 
     public function show(User $user)
